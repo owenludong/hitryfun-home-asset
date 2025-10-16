@@ -65,10 +65,10 @@
     background-color: rgb(248,250,251);
   }
   .focus{
-    color: #faaee1;
+    color: #8dd9bf;
   }
   .focus .input-container {
-    border-color: #faaee1;
+    border-color: #8dd9bf;
   }
   .error {
     color: rgb(236, 47, 47)

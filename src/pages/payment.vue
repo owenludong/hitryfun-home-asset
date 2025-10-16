@@ -158,7 +158,7 @@
       width: calc(100% - 20px);
   }
   .done-btn {
-      background-color: #faaee1;
+      background-color: #8dd9bf;
   }
   #credit-card-img {
     height: 40px;

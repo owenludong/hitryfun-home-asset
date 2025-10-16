@@ -181,7 +181,7 @@
     #personalInfo {
       height: 140px;
       // height: 20%;
-      background: linear-gradient(to bottom right, #faaee1 , #faaee1);
+      background: linear-gradient(to bottom right, #8dd9bf , #8dd9bf);
       padding-left: 20px;
       padding-right: 20px;
       display: flex;

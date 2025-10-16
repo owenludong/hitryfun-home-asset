@@ -20,12 +20,6 @@
               <textarea class="full-width-input required-input" name="description" placeholder="Description*" v-model.trim="info.content" rows="10"></textarea>
             </div>
           </div>
-          <div class="form-row">
-             <div id= "companyAbout">
-                   <p>Email: service@hitryfun.com</p>
-                   <p><a target="_blank" href="https://t.me/hitryfun">Telegram</a> (Join the channel and get the customer service)</p>
-              </div>
-          </div>
 
           <div class="cart-footer defaulthide ui-footer ui-footer-fixed slideup ui-bar-inherit">
             <div class="checkout-button-container">

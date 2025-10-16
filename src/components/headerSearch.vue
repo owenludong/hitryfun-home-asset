@@ -68,7 +68,7 @@
       vertical-align: bottom;
       border: none;
       height: 44px;
-      background: #faaee1;
+      background: #8dd9bf;
       outline: none;
       font-size: 20px;
       // font-weight: bold;
@@ -114,7 +114,7 @@
     // height: 44px;
     color: #ffffff;
     width: 100%;
-    background-color: #faaee1;
+    background-color: #8dd9bf;
     // font-size: getRem108(44);
     padding-left: 16px;
     padding-top: 10px;

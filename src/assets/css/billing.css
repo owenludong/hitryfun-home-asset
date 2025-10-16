@@ -5,7 +5,7 @@
     font-weight: bold;
     text-align: center;
     text-shadow: none;
-    background-color: #faaee1;
+    background-color: #8dd9bf;
     color: #ffffff;
     cursor: pointer
 }
@@ -218,14 +218,14 @@
     margin-bottom: 10px;
     height: 36px;
     width: 100px;
-    border: 1px solid #faaee1;
-    color: #faaee1;
+    border: 1px solid #8dd9bf;
+    color: #8dd9bf;
     cursor: pointer
 }
 
 .blue-outline-button.touched {
-    border: 1px solid #faaee1;
-    color: #faaee1
+    border: 1px solid #8dd9bf;
+    color: #8dd9bf
 }
 
 .blue-outline-button.disabled {

@@ -47,7 +47,7 @@
     flex: auto;
   }
   .category-select {
-    color: #faaee1;
+    color: #8dd9bf;
   }
   .menu-mask {
     position: absolute;

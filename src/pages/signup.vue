@@ -33,7 +33,7 @@
             </button>
           </form>
         </li>
-        <li>
+        <!--<li>
           <div class="login-separator-v2">
             <div class="text">
               or
@@ -50,7 +50,7 @@
                 </span>
               </div>
             </div>
-            <!--
+
             <div class="loginmodal-v2-social-btn gplus-login-btn btn-v2 cronkite" data-tid="1814">
               <div>
                 <img src="../assets/images/gplus.png?v=13" style="margin-left: -6px"/>
@@ -58,9 +58,9 @@
                   Google
                 </span>
               </div>
-            </div>-->
+            </div>
           </div>
-        </li>
+        </li>-->
         <li>
           <div class="signup-existing">
             <div class="signup-existing-txt">

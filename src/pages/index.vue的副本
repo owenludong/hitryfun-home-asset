@@ -94,7 +94,7 @@
     overflow: hidden;
     overflow-x: auto;
     font-size: 14px;
-    background-color: #faaee1;
+    background-color: #8dd9bf;
     padding-left: 10px;
     padding-right: 10px;
     .category-name {

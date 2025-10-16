@@ -16,7 +16,9 @@ import LuojiPlugins from './plugins/index.js'
 import CookieApi from './_common/js/cookies.js'
 import VideoPlayer from 'vue-video-player'
 import IScrollView from 'vue-iscroll-view'
-import IScroll from 'iscroll'
+//import IScroll from 'iscroll'
+// 改为使用 probe 版本：
+import IScroll from 'iscroll/build/iscroll-probe.js'
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 // import './plugins/plugins.css'

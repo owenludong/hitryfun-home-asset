@@ -55,10 +55,10 @@ legend, .ui-input-text input, .ui-input-search input {
     /*border: 1px solid #2FB7EC !important;*/
 }
 #msite-signup-modal .email-signup-button-v2, #msite-signup-modal .email-signin-button-v2, #msite-signup-modal .email-forgot-pwd-btn-v2 {
-    background-color: #2FB7EC;
+    background-color: #6ec9a8;
 }
 #msite-signup-modal .signup-btn-signin, #msite-signup-modal .signin-btn-signup {
-    color: #2FB7EC;
+    color: #6ec9a8;
 }
 .ui-input-text input {
     color: #777;
@@ -145,7 +145,7 @@ legend, .ui-input-text input, .ui-input-search input {
 .msite-signin-signup-modal .singin-v2 ul .signin-new-txt {
     float: left;
     font-size: 14px;
-    padding-left: calc(50% - 72px)
+    padding-left: calc(50% - 107px)
 }
 
 .msite-signin-signup-modal .singin-v2 ul .signin-btn-signup {

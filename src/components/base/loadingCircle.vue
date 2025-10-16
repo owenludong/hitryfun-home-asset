@@ -2,7 +2,7 @@
   <div :class="{'show-mask': isShowMask }">
     <div class="mask"></div>
     <div class="loading">
-      <mt-spinner type="snake" color="#faaee1" :size="60"></mt-spinner>
+      <mt-spinner type="snake" color="#8dd9bf" :size="60"></mt-spinner>
     </div>
   </div>
 </template>

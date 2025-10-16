@@ -11,7 +11,26 @@
       <!--<div class="promo-container">
          <img src="https://www.hitryfun.com/logo/header-adv-banner.jpg">
       </div>-->
-      <iscroll-view class="scroll-view" ref="iscroll" @pullUp="pullUp" @pullDown="pullDown" :options="{mouseWheel:true,useTransition:false,bounceTime:100,click:iScrollClick()}" :style="{top: isIndexPage?86:44+'px'}">
+      <iscroll-view class="scroll-view" ref="iscroll" @pullUp="pullUp" @pullDown="pullDown"  :options="scrollOptions">
+
+        <!-- 视频介绍区域 - 仅在Popular类目显示 -->
+       <div class="video-introduction" v-show="isIndexPage && currentCategory === 'Popular'">
+         <div class="video-container">
+           <video
+             class="intro-video"
+             controls
+             muted
+             playsinline
+             poster="https://www.hitryfun.com/productImg/banner2.png"
+             preload="metadata"
+           >
+             <source src="https://www.hitryfun.com/productImg/intro.mp4" type="video/mp4">
+             Your browser does not support the video tag.
+           </video>
+         </div>
+       </div>
+
+
         <div class="mobile-page-content ui-content" data-role="content" role="main">
           <div class="promo-container" v-show="showAdBanner">
            <img style="width:100%; height:80px;" src="https://www.hitryfun.com/logo/11-ad-mobile.jpg">
@@ -52,7 +71,7 @@
                 <div class="mobile-feed-item" v-for="product in products" @click="showDetail(product.id)">
                   <div class="mobile-feed-item-container-show">
                     <div class="feed-image-container-show" :style="{width: columnWidth, height: columnWidth}">
-                      <div class="mobile-feed-item-image-show" style="background-size:100%" :style="{width: columnWidth, height: columnWidth,backgroundImage: `url(${product.mainImage})`}">
+                      <div class="mobile-feed-item-image-show" :style="{width: columnWidth, height: columnWidth,backgroundImage: `url(${product.mainImage})`}">
                       </div>
                       <div class="discount-banner-show" v-show="product.discountRate && currentCategoryId === 301"> -{{product.discountRate}}% </div>
                       <!--<div class="urgency-inventory-show">Almost Gone!</div>-->
@@ -98,7 +117,7 @@
           </div>
           <!-- <my-loading v-show="isFirstLoading"></my-loading> -->
           <div v-show="isFirstLoading" class="circle-loading">
-            <mt-spinner type="snake" color="#faaee1" :size="60"></mt-spinner>
+            <mt-spinner type="snake" color="#8dd9bf" :size="60"></mt-spinner>
           </div>
         </div>
       </iscroll-view>
@@ -111,12 +130,13 @@
     touch-action: none;
     /* -- Attention-- */
     position: fixed;
-    top: 86px;
+    top: 86px;  // 固定为86px，不再动态变化
     bottom: 0;
     left: 0;
     right: 0;
     overflow: hidden;
     background:#F8FAFB;
+    z-index: 10;  // 新增：设置为较低层级
   }
   .mobile-infinite-scroll-footer {
       text-align: center;
@@ -151,6 +171,7 @@
     margin-top: 44px;
   }
   .category-nav {
+  z-index: 100;     // 新增：确保在最上层
     display: block;
     height: 42px;
     white-space: nowrap;
@@ -158,7 +179,7 @@
     overflow: hidden;
     overflow-x: auto;
     font-size: 14px;
-    background-color: #faaee1;
+    background-color: #8dd9bf;
     padding-left: 10px;
     padding-right: 10px;
     .category-name {
@@ -177,6 +198,26 @@
       opacity: 1;
     }
   }
+
+  .video-introduction {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+    position: relative;  // 改为 relative
+    z-index: 1;  // 降低层级
+
+    .video-container {
+      height: 270px;  // 改为300px
+
+      .intro-video {
+        width: 100%;
+        height: 270px;  // 修改：固定视频高度为200px
+        border-radius: 8px;
+        object-fit: cover;  // 新增：保持视频比例裁剪
+      }
+    }
+  }
+
   .mobile-page-content {
     min-height: 500px;
     color: #777;
@@ -241,6 +282,9 @@
       }
       .mobile-feed-item-image-show {
           border-radius: 2px;
+          background-size: contain;
+          background-repeat: no-repeat;  /* 也建议加上 */
+          background-position: center;
       }
       .authorized-brand-logo-show {
           position: absolute;
@@ -373,18 +417,60 @@ export default {
 
   name: 'index',
   components: { MyHeader, MyLoading },
+  mounted () {
+      this.$nextTick(() => {
+        const video = document.querySelector('.intro-video')
+        if (video) {
+          video.muted = true
+          video.volume = 0
+        }
+        // 绑定滚动监听
+        this.bindScrollListener()
+      })
+    },
   data () {
     return {
+      // 新增：提前加载的阈值配置
+      loadMoreThreshold: 1000, // 距离底部800px时开始加载（可调整这个值）
+
+      // 把原来写在 :options 里的配置提取出来
+      scrollOptions: {
+        mouseWheel: true,
+        useTransition: false,
+        bounceTime: 100,
+        click: this.iScrollClick(),
+        probeType: 3 // 新增：实时监听滚动位置
+      },
       column: null, // 图片展示列数
       columnWidth: null, // 每列的宽度(除去padding 8)
       slidePosition: 120, // 位置中心点
       showFreeNotice: false,
       currentCategory: 'Popular',
-      currentCategoryId: 450,
+      currentCategoryId: 452,
       categories: [
           {
             name: 'Popular',
-            id: 450
+            id: 452
+          },
+          {
+            name: 'Makeup Organizer',
+            id: 500
+          },
+          {
+            name: 'Food Container',
+            id: 502
+          },
+          {
+            name: 'Trash Can',
+            id: 503
+          },
+          {
+            name: 'Countertop Organizer',
+            id: 504
+          },
+          {
+            name: 'Storage Box',
+            id: 505
           }
       ],
       isIndexPage: '', // 是否是主页还是搜索结果页面
@@ -392,7 +478,7 @@ export default {
         params: {
           start: 1, // 分页开始的页数
           max: 15, // 每页最多个数
-          categoryId: 450 // 类目id
+          categoryId: 452 // 类目id
         },
         total: 999 // 产品总个数
       },
@@ -422,6 +508,10 @@ export default {
   beforeDestroy () {
     // window.removeEventListener('scroll', this.loadMore)  // 消除滚动事件
     // window.removeEventListener('resize', this.resizeChange)
+    if (this.$refs.iscroll && this.$refs.iscroll.iscroll) {
+      this.$refs.iscroll.iscroll.off('scroll', this.handleScroll)
+      console.log('✅ scroll 事件已解绑')
+    }
   },
   created () {
     this.fetch()
@@ -439,6 +529,42 @@ export default {
     this.columnWidth = (deviceWidth  - 8 - 16) / this.column - 8 + 'px'
   },
   methods: {
+
+    bindScrollListener() {
+      //console.log('=== 开始绑定滚动监听 ===')
+
+      setTimeout(() => {
+        if (this.$refs.iscroll && this.$refs.iscroll.iscroll) {
+          const iscroll = this.$refs.iscroll.iscroll
+          //console.log('✅ iscroll 实例获取成功')
+          //console.log('probeType:', iscroll.options.probeType)
+
+          // 监听滚动事件
+          iscroll.on('scroll', this.handleScroll)
+          //console.log('✅ scroll 事件绑定成功')
+        } else {
+          //console.log('❌ iscroll 实例不存在')
+        }
+      }, 500) // 等待 iscroll 初始化完成
+    },
+
+    handleScroll() {
+      const iscroll = this.$refs.iscroll.iscroll
+      const currentY = iscroll.y
+      const maxScrollY = iscroll.maxScrollY
+      const distanceToBottom = Math.abs(currentY - maxScrollY)
+
+      //console.log('滚动中 - 距离底部:', distanceToBottom, 'px')
+
+      // 当距离底部小于阈值时，触发加载
+      if (distanceToBottom < this.loadMoreThreshold &&
+          !this.isScrollLoading &&
+          !this.noMoreProducts) {
+        //console.log('✅ 触发提前加载')
+        this.loadMore()
+      }
+    },
+
     pullUp(){
       console.log('pullup');
       this.loadMore();

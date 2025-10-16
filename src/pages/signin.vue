@@ -23,7 +23,7 @@
             </button>
           </form>
         </li>
-        <li>
+        <!-- <li>
           <div class="login-separator-v2">
             <div class="text">
               or
@@ -40,9 +40,9 @@
                 </span>
               </div>
             </div>
-            
+
           </div>
-        </li>
+        </li> -->
         <li>
           <div class="signin-new">
             <div class="signin-new-txt">

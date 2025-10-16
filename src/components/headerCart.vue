@@ -13,7 +13,7 @@
   #header {
     color: #ffffff;
     width: 100%;
-    background-color: #faaee1;
+    background-color: #8dd9bf;
     padding-left: 16px;
     padding-top: 10px;
     padding-bottom: 10px;

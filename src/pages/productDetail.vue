@@ -148,7 +148,7 @@
       <div :class="{'show-mask': isShowMask }">
         <div class="mask"></div>
         <div class="loading">
-          <mt-spinner type="snake" color="#faaee1" :size="60"></mt-spinner>
+          <mt-spinner type="snake" color="#8dd9bf" :size="60"></mt-spinner>
         </div>
       </div>
       <!-- 底部的购物 -->
@@ -185,6 +185,11 @@
               <div class="right-item price" >$we</div>
             </div> -->
             <div class="sku-style" v-for="sku in currentSku.list" @click="selectSku(sku)" v-show="colorStatus.existence || sizeStatus.existence">
+              <!-- 新增缩略图：优先显示 sku.img（在 fetch 中已经赋值） -->
+              <div class="left-item">
+                <img v-if="sku.img" :src="sku.img" class="sku-thumb" />
+                <div v-else class="sku-thumb placeholder"></div>
+              </div>
               <div class="content" :class="{skuless: sku.quantity <= 0, 'all-capital': currentSku.type==='size', 'first-capital': currentSku.type==='color'}">{{sku[currentSku.type]}}</div>
               <div class="right-item price" v-show="currentSku.step === 'end' && sku.quantity > 0">{{detail.symbol}}{{sku.price}}</div>
             </div>
@@ -195,7 +200,7 @@
     </div>
     <!-- <my-loading v-show="isFirstLoading"></my-loading> -->
     <div v-show="isFirstLoading"  class="circle-loading">
-      <mt-spinner type="snake" color="#faaee1" :size="60"></mt-spinner>
+      <mt-spinner type="snake" color="#8dd9bf" :size="60"></mt-spinner>
     </div>
     </div>
 
@@ -207,6 +212,51 @@
   // #selectSKu .content {
   //   text-transform: capitalize;
   // }
+
+  /* SKU 列表里缩略图样式 */
+  .sku-style {
+    padding: 10px 10px;
+    line-height: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  /* 左侧缩略图容器（占位） */
+  .sku-style .left-item {
+    width: 64px;         /* 根据需要调整 */
+    height: 48px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 真正的缩略图 */
+  .sku-thumb {
+    width: 64px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid #eee;
+  }
+
+  /* 缩略图占位样式（无图时显示灰色框） */
+  .sku-thumb.placeholder {
+    background: #f5f5f5;
+    width: 64px;
+    height: 48px;
+    border-radius: 4px;
+    border: 1px dashed #e8e8e8;
+  }
+
+  /* 保持原有 content 样式，但让它左对齐并填满剩余空间 */
+  .sku-style .content {
+    text-align: left;
+    flex: 1;
+    padding-right: 12px;
+  }
+
   .play-img{
     position: absolute;
     left:0;
@@ -1182,6 +1232,8 @@ export default {
               var variations = this.detail.variations
               for (var i = 0; i < variations.length; i++) {
                 // this.sizeColorMap[[variations[i].size]].push(variations[i])
+                // === 标准化图片字段（优先顺序：image -> img -> picUrl -> detail.mainImage） ===
+                variations[i].img = variations[i].image || variations[i].img || variations[i].picUrl || this.detail.mainImage || ''
                 var key = variations[i].color + '_' + variations[i].size
                 this.variationsCache[key] = variations[i]
                 if (variations[i].color && this.colorStatus.colorValues.indexOf(variations[i].color) === -1) {

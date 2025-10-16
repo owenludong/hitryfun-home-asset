@@ -71,7 +71,7 @@
   #header {
     color: #ffffff;
     width: 100%;
-    background-color: #faaee1;
+    background-color: #8dd9bf;
     padding-left: 16px;
     position: fixed;
     top: 0;

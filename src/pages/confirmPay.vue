@@ -114,7 +114,7 @@
   color: red;
 }
 .flat-blue-button {
-    background-color: #faaee1;
+    background-color: #8dd9bf;
 }
 .flat-blue-button:hover {
     background-color: #1baae2;
